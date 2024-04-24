@@ -1,0 +1,75 @@
+/* Imposta lo sfondo bianco */
+@font-face {
+  font-family: 'Suisse Works';
+  src: url('fonts/Giulia Boggio - Bastardo Groteskish Regular.otf') format('truetype');
+}
+
+@font-face {
+  font-family: 'M+1M';
+  src: url('fonts/XanhMono-Regular.ttf') format('truetype');
+}
+
+h1 {
+  font-family: 'Suisse Works', serif;
+  font-size: 48px;
+  margin: 10px;
+  text-align: center;
+}
+
+body {
+  background-color: white;
+  margin: 0;
+  padding: 0;
+  width: 100vw; /* Larghezza della finestra del browser */
+  height: 100vh; /* Altezza della finestra del browser */
+  display: flex;
+  flex-direction: column; /* Aggiunto per posizionare il titolo in cima e il bottone in fondo */
+  align-items: center;
+}
+
+/* Rimuovi margini e padding dal contenitore dell'immagine */
+.centered {
+  text-align: center; /* Per centrare l'immagine */
+  margin: auto; /* Centra l'immagine */
+}
+
+/* Immagine */
+.centered img {
+  max-width: 100%; /* Rendi l'immagine responsiva */
+  max-height: 100px; /* Imposta l'altezza massima */
+}
+
+.hidden {
+  display: none; /* Nascondi l'immagine sottostante di default */
+}
+
+.testo {
+  font-family: 'M+1M', monospace;
+  font-size: 14px;
+  text-align: center;
+}
+
+.bottone {
+  width: 100%;
+  font-family: 'M+1M', monospace;
+  font-size: 14px;
+  
+}
+
+/* Imposta lo stile di base del bottone */
+.back-button {
+  font-family: 'M+1M', monospace;
+  font-size: 14px;
+  width: 100%;
+  height: 30px;
+  background-color: white;
+  border: 1px solid black; /* Outline nero di 1px */
+  color: black; /* Colore del testo nero */
+  cursor: pointer; /* Cambia il cursore quando sopra il bottone */
+}
+
+/* Cambia lo stile del bottone quando il mouse è sopra di esso */
+.back-button:hover {
+  background-color: black; /* Sfondo nero */
+  color: white; /* Testo bianco */
+}

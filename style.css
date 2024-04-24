@@ -1,0 +1,254 @@
+/* Aggiunti stili per le colonne */
+.container {
+    display: flex;
+    min-height: 30px; /* Altezza desiderata */
+}
+
+.left {
+    flex: 1;
+    text-align: left;
+}
+
+.center {
+    flex: 1;
+    text-align: center;
+}
+
+.right {
+    flex: 1;
+    text-align: right;
+}
+
+@font-face {
+    font-family: 'M+1M';
+    src: url('fonts/XanhMono-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Suisse Works';
+    src: url('fonts/Giulia Boggio - Bastardo Groteskish Regular.otf') format('truetype');
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: black !important;
+    color: white !important;
+    font-family: 'M+1M', monospace;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    font-family: 'Suisse Works', serif;
+    font-size: 48px;
+    margin: 10px;
+}
+
+#image-container {
+    position: relative; 
+    /*flex: 1;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*margin: 2vh 0;*/
+}
+
+#main-canvas {
+    max-height: calc(80vh - 100px); 
+    max-width: 90vw;
+    display: block;
+    margin-bottom: 45px;
+}
+
+#filename-container {
+    font-size: 14px;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border: 1px solid white;
+    text-align: center;
+}
+
+#latitude-container,
+#longitude-container,
+#date-container,
+#city-container,
+#building-container {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: -1px;
+    position: relative;
+    font-size: 14px;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border: 1px solid white;
+    text-align: center;
+    display: flex; /* Per posizionarli sulla stessa riga */
+}
+
+.input-container {
+    font-family: 'M+1M', monospace;
+    font-size: 14px;
+    height: 28px;
+    margin-top: -1px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: black;
+    border: 1px solid white;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.input-container input {
+    font-family: 'M+1M', monospace;
+    font-size: 14px;
+    height: 28px;
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 5px;
+    width: calc(100% - 20px);
+    text-align: center;
+    -moz-appearance: textfield;
+    position: relative;
+}
+
+.input-container input::before {
+    font-family: 'M+1M', monospace;
+    font-size: 14px;
+    height: 28px;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.input-container input {
+    font-family: 'M+1M', monospace;
+    font-size: 14px;
+    height: 28px;
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+    -moz-appearance: textfield;
+    outline: 1px solid white;
+    box-sizing: border-box;
+}
+
+.input-container input:focus {
+    height: 28px;
+    background-color: white;
+    color: black;
+    outline: none;
+}
+
+/*elemento perm nascondere le frecce*/
+.input-container input[type="number"]::-webkit-inner-spin-button,
+.input-container input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0; /* Aggiungi questo se le frecce rimangono visibili */
+}
+
+#mixButton {
+    margin-top: -1px;
+    font-family: 'M+1M', monospace;
+    outline: 1px solid white;
+    font-size: 14px;
+    height: 30px;
+    background-color: black; /* Imposta il colore di sfondo nero */
+    color: white; /* Imposta il colore del testo bianco */
+}
+
+#mixButton:active {
+    margin-top: -1px;
+    background-color: white; /* Imposta il colore di sfondo bianco quando il bottone viene cliccato */
+    outline: 1px solid white;
+    color: black; /* Imposta il colore del testo nero quando il bottone viene cliccato */
+}
+
+#nextPageButton {
+    font-size: 14px;
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    padding: 5px 10px;
+    font-family: 'M+1M', monospace;
+    margin-top: -1px;
+    text-decoration: none; /* Rimuovi la sottolineatura del link */
+}
+
+#nextPageButton:hover {
+    background-color: white !important;
+    color: black !important;
+    cursor: pointer;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#closeImage {
+    font-family: 'M+1M', monospace;
+    position: absolute;
+    right: 10px; /* Regola aggiornata per spostare la X leggermente più a destra */
+    font-size: 38px !important; /* Dimensione del carattere impostata a 14px con priorità */
+    color: white; /* Colore del testo impostato su bianco */
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.container-bottom{
+    position: fixed;
+    width: 100%;
+    left: 0%;
+    bottom: 0%;
+    z-index: 10;
+}
+
+.container-bottom-btn{
+    display: flex;
+    flex-direction: column;
+}
