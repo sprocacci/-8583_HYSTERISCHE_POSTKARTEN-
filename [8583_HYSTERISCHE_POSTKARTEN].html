@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>👹 [8583_HYSTERISCHE_POSTKARTEN] 👹</title>
-    <link rel="stylesheet" href="style.css"> <!-- Collega il file CSS -->
+    <link rel="stylesheet" href="hysterische_style.css"> <!-- Collega il file CSS -->
+    
 </head>
 <body>
     <h1 class="title-h1">[8583 Hysterische Postkarten]</h1> <!-- Titolo -->
+    
     <div id="image-container">
         <canvas id="main-canvas" width="1654" height="1076"></canvas> <!-- Utilizziamo un canvas per il collage -->
     </div>
+
     <div class="container-bottom">
         <div class="container">
             <div id="filename-container" class="left">NOME</div> <!-- Contenitore per il filename -->
@@ -28,19 +31,19 @@
             <input type="number" id="split" name="split" min="1" max="10203" value="1" placeholder="NUMERO DI PORZIONI" class="white-text"/> <!-- Input numerico -->
         </div>
         <div class="container-bottom-btn">
-            <button id="mixButton">GENERA</button> <!-- Pulsante GENERA -->
-            <a id="nextPageButton" href="CHI_SONO.html">CHI SONO</a> <!-- Link per la pagina verde -->
+            <button id="mixButton">☞ GENERA ☜</button> <!-- Pulsante GENERA -->
+            <a id="nextPageButton" href="manuale.html">MANUALE</a> <!-- Link per la pagina verde -->
         </div>
     </div>
     
 
     <!-- Elemento modale per visualizzare l'immagine selezionata -->
     <div id="imageModal" class="modal">
-        <button id="closeImage" class="close-button">&times;</button>
+        <button id="closeImage" class="close-button">CHIUDI</button>
         <img class="modal-content" id="selectedImage">
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Collegamento a jQuery -->
-    <script src="script.js"></script> <!-- Collega il file JavaScript -->
+    <script src="hysterische_script.js"></script> <!-- Collega il file JavaScript -->
 </body>
 </html>

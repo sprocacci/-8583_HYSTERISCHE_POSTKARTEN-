@@ -14,10 +14,11 @@ h1 {
   font-size: 48px;
   margin: 10px;
   text-align: center;
+  color: white;
 }
 
 body {
-  background-color: white;
+  background-color: black;
   margin: 0;
   padding: 0;
   width: 100vw; /* Larghezza della finestra del browser */
@@ -47,6 +48,7 @@ body {
   font-family: 'M+1M', monospace;
   font-size: 14px;
   text-align: center;
+  color: white;
 }
 
 .bottone {
@@ -62,14 +64,18 @@ body {
   font-size: 14px;
   width: 100%;
   height: 30px;
-  background-color: white;
-  border: 1px solid black; /* Outline nero di 1px */
-  color: black; /* Colore del testo nero */
+  background-color: black;
+  border: 1px solid white; /* Outline nero di 1px */
+  color: white; /* Colore del testo nero */
   cursor: pointer; /* Cambia il cursore quando sopra il bottone */
 }
 
 /* Cambia lo stile del bottone quando il mouse è sopra di esso */
 .back-button:hover {
-  background-color: black; /* Sfondo nero */
-  color: white; /* Testo bianco */
+  background-color: white; /* Sfondo nero */
+  color: black; /* Testo bianco */
+}
+
+#Immagine_Centrata {
+  cursor: pointer;
 }

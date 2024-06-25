@@ -1,7 +1,7 @@
 /* Aggiunti stili per le colonne */
 .container {
     display: flex;
-    min-height: 30px; /* Altezza desiderata */
+    height: 29px; /* Altezza desiderata */
 }
 
 .left {
@@ -61,7 +61,7 @@ h1 {
 }
 
 #main-canvas {
-    max-height: calc(80vh - 100px); 
+    max-height: calc(80vh - 210px); 
     max-width: 90vw;
     display: block;
     margin-bottom: 45px;
@@ -102,13 +102,14 @@ h1 {
     margin-top: -1px;
     display: flex;
     flex-direction: row;
+    box-sizing: border-box;
+    position: relative;
     justify-content: center;
     align-items: center;
     width: 100%;
     background-color: black;
     border: 1px solid white;
-    box-sizing: border-box;
-    position: relative;
+
 }
 
 .input-container input {
@@ -119,7 +120,7 @@ h1 {
     color: white;
     border: none;
     padding: 5px;
-    width: calc(100% - 20px);
+    width: 100%;
     text-align: center;
     -moz-appearance: textfield;
     position: relative;
@@ -144,7 +145,7 @@ h1 {
 .input-container input {
     font-family: 'M+1M', monospace;
     font-size: 14px;
-    height: 28px;
+    height: 26px;
     background-color: black;
     color: white;
     border: none;
@@ -157,7 +158,7 @@ h1 {
 }
 
 .input-container input:focus {
-    height: 28px;
+    height: 27px;
     background-color: white;
     color: black;
     outline: none;
@@ -174,11 +175,12 @@ h1 {
 #mixButton {
     margin-top: -1px;
     font-family: 'M+1M', monospace;
-    outline: 1px solid white;
+    border: 1px solid white;
     font-size: 14px;
-    height: 30px;
+    height: 29px;
     background-color: black; /* Imposta il colore di sfondo nero */
     color: white; /* Imposta il colore del testo bianco */
+    appearance:none;
 }
 
 #mixButton:active {
@@ -186,6 +188,7 @@ h1 {
     background-color: white; /* Imposta il colore di sfondo bianco quando il bottone viene cliccato */
     outline: 1px solid white;
     color: black; /* Imposta il colore del testo nero quando il bottone viene cliccato */
+    border:none;
 }
 
 #nextPageButton {
@@ -193,10 +196,12 @@ h1 {
     background-color: black;
     color: white;
     border: 1px solid white;
-    padding: 5px 10px;
+    padding: 4.75px;
     font-family: 'M+1M', monospace;
     margin-top: -1px;
     text-decoration: none; /* Rimuovi la sottolineatura del link */
+    display: flex;
+    flex-direction: column;
 }
 
 #nextPageButton:hover {
@@ -214,30 +219,43 @@ h1 {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.9);
+    background-color: rgba(0,0,0,1);
 }
 
 .modal-content {
     margin: auto;
     display: block;
-    max-width: 90%;
-    max-height: 90%;
     position: absolute;
-    top: 50%;
+    top: 49%;
     left: 50%;
     transform: translate(-50%, -50%);
+    max-width: 90vw; /* Massima larghezza del 90% della larghezza della viewport */
+    max-height: 80vh; /* Altezza massima del 80% dell'altezza della viewport */
 }
 
 #closeImage {
     font-family: 'M+1M', monospace;
-    position: absolute;
-    right: 10px; /* Regola aggiornata per spostare la X leggermente più a destra */
-    font-size: 38px !important; /* Dimensione del carattere impostata a 14px con priorità */
-    color: white; /* Colore del testo impostato su bianco */
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    outline: none;
+    font-size: 14px;
+    color: white;
+    width: 100%;
+    height: 29px;
+    background-color: black;
+    padding: 5px;;
+    border: 1px solid white; /* Outline nero di 1px */
+    cursor: pointer; /* Cambia il cursore quando sopra il bottone */
+    position: fixed; /* Posizionamento fisso */
+    bottom: 0; /* Allinea il tasto al fondo della pagina */
+    left: 0; /* Allinea il tasto a sinistra della pagina */
+    right: 0; /* Allinea il tasto a destra della pagina */
+    text-align: center; /* Centra il testo all'interno del pulsante */
+}
+
+#closeImage:active {
+    margin-top: -1px;
+    background-color: white; /* Imposta il colore di sfondo bianco quando il bottone viene cliccato */
+    outline: 1px solid white;
+    color: black; /* Imposta il colore del testo nero quando il bottone viene cliccato */
+    border:none;
 }
 
 .container-bottom{
@@ -245,8 +263,8 @@ h1 {
     width: 100%;
     left: 0%;
     bottom: 0%;
-    z-index: 10;
 }
+
 
 .container-bottom-btn{
     display: flex;
