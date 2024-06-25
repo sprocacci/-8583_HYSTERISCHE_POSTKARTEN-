@@ -12,9 +12,6 @@ $(document).ready(function() {
     // Imposta i testi predefiniti all'avvio della pagina
     setDefaultInfoTexts();
 
-    // Imposta il numero di porzioni a 2 all'avvio della pagina
-    $('#split').val(2);
-
     // Variabili globali
     var images; // Array contenente i dati delle immagini
     var savedImageData; // Dati dell'immagine salvati per il ridimensionamento del canvas
@@ -104,73 +101,82 @@ $(document).ready(function() {
         }
 
         // Funzione per mescolare le immagini sul canvas
-        function mixImages() {
-            cancelCurrentXHR(); // Annulla la richiesta XHR pendente
+function mixImages() {
+    cancelCurrentXHR(); // Annulla la richiesta XHR pendente
 
-            if (loadingImages) {
-                clearCanvas(); // Cancella il canvas se le immagini stanno ancora caricando
-            }
+    if (loadingImages) {
+        clearCanvas(); // Cancella il canvas se le immagini stanno ancora caricando
+    }
 
-            loadingImages = true; // Imposta il flag loadingImages a true
+    loadingImages = true; // Imposta il flag loadingImages a true
 
-            var splitVal = $('#split').val(); // Numero di divisioni specificato dall'utente
-            var canvas = document.getElementById("main-canvas");
-            var ctx = canvas.getContext("2d");
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // Cancella il canvas
-            segmentHeight = canvas.height / splitVal; // Calcola l'altezza del segmento
-            segmentWidth = canvas.width; // Imposta la larghezza del segmento uguale alla larghezza del canvas
+    var splitVal = $('#split').val(); // Numero di divisioni specificato dall'utente
+    if (splitVal === '') {
+        splitVal = 1; // Imposta un valore predefinito di 1 se il campo è vuoto
+    }
+    splitVal = parseInt(splitVal); // Converti il valore in un numero intero
 
-            imageArray = []; // Resetta l'array delle immagini
+    var canvas = document.getElementById("main-canvas");
+    var ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Cancella il canvas
+    segmentHeight = canvas.height / splitVal; // Calcola l'altezza del segmento
+    segmentWidth = canvas.width; // Imposta la larghezza del segmento uguale alla larghezza del canvas
 
-            // Funzione per caricare un'immagine
-            function loadImage(index) {
-                var image = new Image(); // Crea un nuovo elemento immagine
-                image.onload = function() {
-                    var y = index * segmentHeight; // Calcola la posizione verticale dell'immagine sul canvas
-                    ctx.save(); // Salva il contesto di disegno
-                    ctx.beginPath();
-                    ctx.rect(0, y, segmentWidth, segmentHeight); // Crea un rettangolo per il clipping
-                    ctx.closePath();
-                    ctx.clip();
-                    ctx.drawImage(image, 0, 0, canvas.width, canvas.height); // Disegna l'immagine sul canvas
-                    ctx.restore(); // Ripristina il contesto di disegno
+    imageArray = []; // Resetta l'array delle immagini
 
-                    // Controlla se tutte le immagini sono state caricate
-                    var allImagesLoaded = imageArray.every(function(imgObj) {
-                        return imgObj.image.complete;
-                    });
+    // Funzione per caricare un'immagine
+    function loadImage(index) {
+        var image = new Image(); // Crea un nuovo elemento immagine
+        image.onload = function() {
+            var y = index * segmentHeight; // Calcola la posizione verticale dell'immagine sul canvas
+            ctx.save(); // Salva il contesto di disegno
+            ctx.beginPath();
+            ctx.rect(0, y, segmentWidth, segmentHeight); // Crea un rettangolo per il clipping
+            ctx.closePath();
+            ctx.clip();
+            ctx.drawImage(image, 0, 0, canvas.width, canvas.height); // Disegna l'immagine sul canvas
+            ctx.restore(); // Ripristina il contesto di disegno
 
-                    if (allImagesLoaded) {
-                        loadingImages = false; // Imposta il flag loadingImages a false quando tutte le immagini sono caricate
-                    }
-                };
-                var randomIndex = Math.floor(Math.random() * images.length); // Genera un indice casuale
-                // Aggiunge l'immagine all'array delle immagini caricando i dati dall'array images
-                imageArray.push({ 
-                    image: image, 
-                    filename: images[randomIndex].filename, 
-                    latitude: images[randomIndex].latitude, 
-                    longitude: images[randomIndex].longitude,
-                    date: images[randomIndex].date, 
-                    city: images[randomIndex].city,
-                    building: images[randomIndex].building
-                });
-                image.src = images[randomIndex].URL; // Imposta l'URL dell'immagine
-                images.splice(randomIndex, 1); // Rimuove l'immagine dall'array images per evitare duplicati
-            }
-
-            // Carica le immagini e mescolale sul canvas
-            for (var i = 0; i < splitVal; i++) {
-                loadImage(i);
-            }
-
-            $(imageArray[imageArray.length - 1].image).on('load', function() {
-                loadingImages = false; // Imposta il flag loadingImages a false quando tutte le immagini sono caricate
+            // Controlla se tutte le immagini sono state caricate
+            var allImagesLoaded = imageArray.every(function(imgObj) {
+                return imgObj.image.complete;
             });
 
-            // Rimuove il focus dall'input container
-            $('#split').blur();
-        }
+            if (allImagesLoaded) {
+                loadingImages = false; // Imposta il flag loadingImages a false quando tutte le immagini sono caricate
+            }
+        };
+        var randomIndex = Math.floor(Math.random() * images.length); // Genera un indice casuale
+        // Aggiunge l'immagine all'array delle immagini caricando i dati dall'array images
+        imageArray.push({ 
+            image: image, 
+            filename: images[randomIndex].filename, 
+            latitude: images[randomIndex].latitude, 
+            longitude: images[randomIndex].longitude,
+            date: images[randomIndex].date, 
+            city: images[randomIndex].city,
+            building: images[randomIndex].building
+        });
+        image.src = images[randomIndex].URL; // Imposta l'URL dell'immagine
+        images.splice(randomIndex, 1); // Rimuove l'immagine dall'array images per evitare duplicati
+    }
+
+    // Carica almeno un'immagine se splitVal è 0 o NaN
+    if (splitVal <= 0 || isNaN(splitVal)) {
+        splitVal = 1;
+    }
+
+    // Carica le immagini e mescolale sul canvas
+    for (var i = 0; i < splitVal; i++) {
+        loadImage(i);
+    }
+
+    $(imageArray[imageArray.length - 1].image).on('load', function() {
+        loadingImages = false; // Imposta il flag loadingImages a false quando tutte le immagini sono caricate
+    });
+
+
+}
 
         // Funzione per cambiare il colore del pulsante "GENERA" dopo il click
         function toggleButtonColors() {
@@ -248,29 +254,30 @@ $(document).ready(function() {
         resizeCanvas(); // Esegue il ridimensionamento del canvas all'avvio
 
         // Aggiunge un event listener per l'evento keydown sull'intero documento per avviare il mix and match premendo il tasto Invio
-        $(document).on('keydown', function(event) {
-            // Controlla se la finestra modale dell'immagine è aperta
-            if (event.key === "Enter" && imageModalOpen) {
-                // Chiudi la finestra modale quando viene premuto Invio
-                var modal = document.getElementById("imageModal");
-                modal.style.display = "none"; // Nasconde il popup
-                imageModalOpen = false; // Imposta il flag a false
-            } else if (event.key === "Enter") {
-                // Altrimenti, se la finestra modale non è aperta, verifica il valore inserito e avvia il mix and match
-                var splitVal = $('#split').val(); // Numero di divisioni specificato dall'utente
-                if (splitVal < 1 || splitVal > 100 || isNaN(splitVal)) {
-                    $('#split').val(''); // Pulisci l'input
-                    $('#split').attr('placeholder', 'INSERIRE UN VALORE 1 A 100'); // Mostra il messaggio di avviso
-                } else {
-                    mixImages(); // Avvia il mix and match
-                }
-            } else if (event.key === "Escape" && imageModalOpen) {
-                // Chiudi la finestra modale quando viene premuto Esc
-                var modal = document.getElementById("imageModal");
-                modal.style.display = "none"; // Nasconde il popup
-                imageModalOpen = false; // Imposta il flag a false
-            }
-        });
+$(document).on('keydown', function(event) {
+    // Controlla se la finestra modale dell'immagine è aperta
+    if (event.key === "Enter" && imageModalOpen) {
+        // Chiudi la finestra modale quando viene premuto Invio
+        var modal = document.getElementById("imageModal");
+        modal.style.display = "none"; // Nasconde il popup
+        imageModalOpen = false; // Imposta il flag a false
+    } else if (event.key === "Enter") {
+        // Altrimenti, se la finestra modale non è aperta, verifica il valore inserito e avvia il mix and match
+        var splitVal = $('#split').val(); // Numero di divisioni specificato dall'utente
+        if (splitVal < 1 || splitVal > 100 || isNaN(splitVal)) {
+            $('#split').val(''); // Pulisci l'input
+            $('#split').attr('placeholder', 'INSERIRE UN VALORE 1 A 100'); // Mostra il messaggio di avviso
+        } else {
+            mixImages(); // Avvia il mix and match
+        }
+        $('#split').blur(); // Togli il focus dall'input #split
+    } else if (event.key === "Escape" && imageModalOpen) {
+        // Chiudi la finestra modale quando viene premuto Esc
+        var modal = document.getElementById("imageModal");
+        modal.style.display = "none"; // Nasconde il popup
+        imageModalOpen = false; // Imposta il flag a false
+    }
+});
 
         var normalDiv = document.getElementById('image-container');
         var fixedElement = document.getElementsByClassName('container-bottom');
@@ -332,8 +339,7 @@ $(document).ready(function() {
         }
     });
 
-    // Gestisce l'evento di cambiamento dell'input per nascondere il messaggio di avviso
-    $('#split').on('input', function() {
-        $('#split').attr('placeholder', 'NUMERO DI PORZIONI'); // Ripristina il messaggio predefinito
+    $('#split').val(''); // Imposta il valore vuoto
+    $('#split').focus(); // Imposta il focus sull'input
+
     });
-});
